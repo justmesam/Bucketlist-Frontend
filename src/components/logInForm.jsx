@@ -24,6 +24,7 @@ const renderTextField = ({
   ...custom
 }) =>
   <TextField
+    fullWidth={true}
     hintText={label}
     floatingLabelText={label}
     errorText={touched && error}
