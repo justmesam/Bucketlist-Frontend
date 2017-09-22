@@ -9,20 +9,26 @@ const Details = (props) => (
   <Card style={{
     display: 'inline-block',
     margin: 12,
-    width: '30vw',
+    width: '35vw',
     transitionDuration: '0.3s'}}
     onClick={props.getDetails}
     >
     <CardHeader
       title={props.title}
-      actAsExpander={true}
-      showExpandableButton={true}
     />
-    <CardText expandable={true}>
+    <CardText >
       <p>{props.intro}</p>
+      <div style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+  }}>
       <Chip>
         {props.date}
       </Chip>
+      <Chip>
+        {props.dateUpdated}
+      </Chip>
+      </div>
     </CardText>
       <FlatButton primary={true} onClick={props.view} label="View items" />
       <FlatButton
