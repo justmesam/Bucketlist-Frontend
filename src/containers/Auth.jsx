@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { registerUser, loginUser } from '../actions/authActions';
-
+import {Tabs, Tab} from 'material-ui/Tabs';
 import RegisterForm from '../components/registerForm';
 import LoginForm from '../components/logInForm';
 
@@ -38,16 +38,18 @@ class Authentication extends Component {
   render(){
     return (
     <div>
-     <div>
-       <RegisterForm
-         onSubmit={(values) => this.handleRegister(values)}
+      <Tabs>
+    <Tab label="Register" >
+      <RegisterForm
+        onSubmit={(values) => this.handleRegister(values)}
+      />
+    </Tab>
+    <Tab label="Login" >
+      <LoginForm
+        onSubmit={(values) => this.handleLogin(values)}
        />
-       </div>
-       <div>
-       <LoginForm
-         onSubmit={(values) => this.handleLogin(values)}
-        />
-     </div>
+    </Tab>
+  </Tabs>
     </div>
 );
   }
