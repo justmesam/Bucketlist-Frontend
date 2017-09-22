@@ -97,6 +97,7 @@ const initial_state =  {
        bucketlists.map((bucketlist) =>(
          <Details
            date={bucketlist.date_created}
+           dateUpdated={bucketlist.date_updated}
            getDetails={() => this.handleGetOne(bucketlist.id)}
            key={bucketlist.id}
            title={bucketlist.title}
