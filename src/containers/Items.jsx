@@ -72,6 +72,7 @@ import {
            allItems.map((item) =>(
              <Details
                date={item.date_created}
+               dateUpdated={item.date_updated}
                key={item.id}
                title={item.title}
                intro={item.intro}
