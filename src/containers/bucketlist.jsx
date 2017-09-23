@@ -149,14 +149,6 @@ const initial_state =  {
             label="Add a bucketlist"
             secondary={true}
             onClick={() => this.handleAdd()}/>
-           <IconMenu
-             iconButtonElement={
-               <IconButton touch={true}>
-                 <NavigationExpandMoreIcon />
-               </IconButton>
-             }
-           >
-           </IconMenu>
          </ToolbarGroup>
    </Toolbar>
            <div>
