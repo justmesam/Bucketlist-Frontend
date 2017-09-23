@@ -51,10 +51,10 @@ let RegisterForm = props => {
       <Field name="password" type="password" component={renderTextField} label="Password" /><br/>
       <Field name="confirmpassword" type="password" component={renderTextField} label="Confirm password" />
       <div>
-        <button type="submit" disabled={submitting}>
+        <button className="btn btn-outline-info btn-lg btn-block" type="submit" disabled={submitting}>
           Submit
         </button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>
+        <button className="btn btn-outline-warning btn-lg btn-block" type="button" disabled={pristine || submitting} onClick={reset}>
           Clear Values
         </button>
       </div>

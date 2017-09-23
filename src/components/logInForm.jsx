@@ -45,11 +45,11 @@ let LoginForm = props => {
       />
       <Field name="password" type="password" component={renderTextField} label="Password" />
       <div>
-        <button type="submit" disabled={submitting}>
+        <button className="btn btn-outline-info btn-lg btn-block" type="submit" disabled={pristine || submitting}>
           Submit
         </button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>
-          Clear Values
+        <button className="btn btn-outline-warning btn-lg btn-block" type="button" disabled={pristine || submitting} onClick={reset}>
+          Clear
         </button>
       </div>
     </form>

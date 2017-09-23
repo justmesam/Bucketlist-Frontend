@@ -43,11 +43,11 @@ let BucketlistForm = props => {
       <div>
         <Field name="intro" component={renderTextField} label="Intro" />
       </div>
-      <div>
-        <button type="submit" disabled={pristine || submitting}>
+      <div >
+        <button className="btn btn-outline-info btn-lg btn-block" type="submit" disabled={pristine || submitting}>
           Submit
         </button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>
+        <button className="btn btn-outline-warning btn-lg btn-block" type="button" disabled={pristine || submitting} onClick={reset}>
           Clear
         </button>
       </div>
