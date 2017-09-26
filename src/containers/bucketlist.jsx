@@ -137,10 +137,6 @@ const initial_state =  {
        <div>
          <Toolbar style={{margin:15}}>
            <ToolbarTitle text="Bucketlists" />
-         <ToolbarGroup value={1} firstChild={true}>
-           <DropDownMenu >
-           </DropDownMenu>
-         </ToolbarGroup>
          <ToolbarGroup>
            <ToolbarSeparator />
            <RaisedButton
