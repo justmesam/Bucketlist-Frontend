@@ -1,17 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField'
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import React from "react";
+import { connect } from "react-redux";
+import TextField from "material-ui/TextField"
+import { Field, reduxForm, formValueSelector } from "redux-form";
 
 const validate = values => {
   const errors = {}
   if (!values.email) {
-    errors.email = 'Required'
+    errors.email = "Required"
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
+    errors.email = "Invalid email address"
   }
   if (!values.password) {
-    errors.password = 'Required'
+    errors.password = "Required"
   }
   return errors
 }
@@ -57,16 +57,16 @@ let LoginForm = props => {
 }
 
 LoginForm = reduxForm({
-  form: 'loginForm',
+  form: "loginForm",
   validate,
 })(LoginForm);
 
-const selector = formValueSelector('loginForm');
+const selector = formValueSelector("loginForm");
 
 
 const mapStateToProps = state => {
-  const email = selector(state, 'email')
-  const password = selector(state, 'password')
+  const email = selector(state, "email")
+  const password = selector(state, "password")
    return {
       email,
       password

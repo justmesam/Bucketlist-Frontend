@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import AppBar from 'material-ui/AppBar';
-import Dialog from 'material-ui/Dialog';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
-import Avatar from 'material-ui/Avatar';
+import React, {Component} from "react";
+import { connect } from "react-redux";
+import AppBar from "material-ui/AppBar";
+import Dialog from "material-ui/Dialog";
+import IconButton from "material-ui/IconButton";
+import IconMenu from "material-ui/IconMenu";
+import MenuItem from "material-ui/MenuItem";
+import FlatButton from "material-ui/FlatButton";
+import Avatar from "material-ui/Avatar";
 import { logoutUser,
         changePassword,
         deleteUser
- } from '../../actions/authActions';
- import ChangePasswordForm from '../changePassword';
+ } from "../../actions/authActions";
+ import ChangePasswordForm from "../changePassword";
 
 
 class NavBar extends Component {
@@ -57,17 +57,18 @@ class NavBar extends Component {
       <div>
         <AppBar
           style={{
-            backgroundColor : '#A1887F',
-            height: '5vw'}}
+            backgroundColor : "#A1887F",
+            height: "5vw"}}
           title="La - Bucketlist"
           iconElementRight={
-
             <IconMenu
               iconButtonElement={
-                <IconButton><Avatar>A</Avatar></IconButton>
+                <IconButton>
+                  <Avatar>A</Avatar>
+                </IconButton>
               }
-              targetOrigin={{horizontal: 'right', vertical: 'top'}}
-              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+              targetOrigin={{horizontal: "right", vertical: "top"}}
+              anchorOrigin={{horizontal: "right", vertical: "top"}}
             >
               <MenuItem primaryText="Change password" onClick={this.handleChangeModal} />
               <MenuItem primaryText="Log out" onClick={this.handleLogout} />
@@ -77,7 +78,7 @@ class NavBar extends Component {
           }
         />
         <Dialog
-         title="Edit a Bucketlist"
+         title="Change User Password"
          actions={actionChange}
          modal={false}
          open={this.state.openChange}
@@ -94,8 +95,8 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { token, authenticated } = state.authentication
-  return { token, authenticated }
+  const { token, authenticated, user } = state.authentication
+  return { token, authenticated, user}
 }
 
 export default connect(mapStateToProps, {logoutUser, changePassword})(NavBar)

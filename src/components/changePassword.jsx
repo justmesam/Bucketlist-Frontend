@@ -1,22 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField'
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import React from "react";
+import { connect } from "react-redux";
+import TextField from "material-ui/TextField"
+import { Field, reduxForm, formValueSelector } from "redux-form";
 
 const validate = values => {
   const errors = {}
   if (!values.old_password) {
-    errors.old_password = 'Required'
+    errors.old_password = "Required"
   }
   if (!values.new_password) {
-    errors.new_password = 'Required'
+    errors.new_password = "Required"
 
     if (!values.confirm_password) {
-      errors.confirm_password = 'Required'
+      errors.confirm_password = "Required"
     }
     if (values.new_password !== values.confirm_password) {
-      errors.new_password = 'The passwords must be same'
-      errors.confirm_password = 'The passwords must be same'
+      errors.new_password = "The passwords must be same"
+      errors.confirm_password = "The passwords must be same"
     }
   return errors
 }}
@@ -63,17 +63,17 @@ let ChangePasswordForm = props => {
 }
 
 ChangePasswordForm = reduxForm({
-  form: 'ChangePasswordForm',
+  form: "ChangePasswordForm",
   validate,
 })(ChangePasswordForm);
 
-const selector = formValueSelector('ChangePasswordForm');
+const selector = formValueSelector("ChangePasswordForm");
 
 
 const mapStateToProps = state => {
-  const old_password = selector(state, 'old_password')
-  const new_password = selector(state, 'new_password')
-  const confirm_password = selector(state, 'confirm_password')
+  const old_password = selector(state, "old_password")
+  const new_password = selector(state, "new_password")
+  const confirm_password = selector(state, "confirm_password")
    return {
      old_password,
      new_password,

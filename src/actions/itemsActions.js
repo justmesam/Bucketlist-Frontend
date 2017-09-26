@@ -1,4 +1,4 @@
-import instance from '../constants/axiosConfig';
+import instance from "../constants/axiosConfig";
 
 const GET_BUCKETLIST_ITEMS = "GET_BUCKETLIST_ITEMS";
 const GET_ONE_BUCKETLIST_ITEM = "GET_ONE_BUCKETLIST_ITEM";

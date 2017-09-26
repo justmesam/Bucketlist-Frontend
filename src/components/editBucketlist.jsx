@@ -1,18 +1,18 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import TextField from 'material-ui/TextField'
-import { Field, reduxForm} from 'redux-form';
+import React from "react"
+import { connect } from "react-redux"
+import TextField from "material-ui/TextField"
+import { Field, reduxForm} from "redux-form";
 
 
 const validate = values => {
   const errors = {}
   const requiredFields = [
-    'title',
-    'intro',
+    "title",
+    "intro",
   ]
   requiredFields.forEach(field => {
     if (!values[field]) {
-      errors[field] = 'Required'
+      errors[field] = "Required"
     }
   })
 }
@@ -56,7 +56,7 @@ let BucketlistEditForm = props => {
 }
 
 BucketlistEditForm = reduxForm({
-  form: 'BucketlistEditForm',
+  form: "BucketlistEditForm",
   validate
 })(BucketlistEditForm)
 

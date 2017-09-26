@@ -1,35 +1,34 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
+import RaisedButton from "material-ui/RaisedButton";
+import DropDownMenu from "material-ui/DropDownMenu";
+import IconMenu from "material-ui/IconMenu";
+import IconButton from "material-ui/IconButton";
+import {Tabs, Tab} from "material-ui/Tabs";
+import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from "material-ui/Toolbar";
 import {
   getBucketlists,
   getOneBucketlist,
   postBucketlists,
   editBucketlists,
   deleteBucketlists
-} from '../actions/bucketlistsActions';
+} from "../actions/bucketlistsActions";
 
-import BucketlistEditForm from '../components/editBucketlist';
-import BucketlistForm from '../components/bucketlistForm';
-import ItemContainer from './Items';
-import Details from '../components/bucketlistDetails';
+import BucketlistEditForm from "../components/editBucketlist";
+import BucketlistForm from "../components/bucketlistForm";
+import ItemContainer from "./Items";
+import Details from "../components/bucketlistDetails";
 
 const initial_state =  {
    openCreate : false,
    openEdit : false,
    openView:false,
-   value: 'a',
-   title : '',
-   intro : '',
-   id: ''
+   title : "",
+   intro : "",
+   id: ""
  }
  class BucketContainer extends Component {
    constructor(props) {
@@ -40,24 +39,24 @@ const initial_state =  {
    componentWillMount() {
      this.props.getBucketlists()
    }
-   handleAdd(){
+   handleAdd = () => {
      this.setState({openCreate : !this.state.openCreate})
    }
    handleChange = (value) => {
     this.setState({
       value: value,
     })}
-  handleView(){
+  handleView = () => {
        this.setState({openView : !this.state.openView})
    }
-   handleEdit(bucketid){
+   handleEdit = (bucketid) => {
      this.setState({openEdit : !this.state.openEdit,
                    id: bucketid})
    }
-   handleDelete(id){
+   handleDelete = (id) => {
      this.props.deleteBucketlists(id)
    }
-   handlePost(values){
+   handlePost = (values) => {
      this.setState({
        title: values.title,
        intro: values.intro
@@ -68,13 +67,13 @@ const initial_state =  {
      }, 1000)
      setTimeout(() => {this.setState(initial_state)}, 2000)
    }
-   handleGetOne(id){
+   handleGetOne = (id) => {
      const { bucketlists } = this.props
      if(bucketlists){
      this.props.getOneBucketlist(id)
    }
    }
-   handlePut(values){
+   handlePut = (values) => {
      this.setState({
        title: values.title,
        intro: values.intro
@@ -102,7 +101,7 @@ const initial_state =  {
            key={bucketlist.id}
            title={bucketlist.title}
            intro={bucketlist.intro}
-           view={() => this.handleView()}
+           view={this.handleView}
            edit={() => this.handleEdit(bucketlist.id)}
            delete={() => this.handleDelete(bucketlist.id)}
          />
@@ -114,25 +113,25 @@ const initial_state =  {
       <FlatButton
         label="Cancel"
         primary={true}
-        onClick={() => this.handleAdd()}
+        onClick={this.handleAdd}
       />]
       const actionedit = [
       <FlatButton
         label="Cancel"
         primary={true}
-        onClick={() => this.handleEdit()}
+        onClick={this.handleEdit}
       />]
       const actionview = [
       <FlatButton
         label="Cancel"
         primary={true}
-        onClick={() => this.handleView()}
+        onClick={this.handleView}
       /> ];
       const customContentStyle = {
-        width: '80%',
-        maxWidth: 'none',
-        height: '80vw',
-        maxHeight: 'none',
+        width: "80%",
+        maxWidth: "none",
+        height: "80vw",
+        maxHeight: "none",
       };
      return (
        <div>
@@ -148,7 +147,7 @@ const initial_state =  {
              style={{}}
             label="Add a bucketlist"
             secondary={true}
-            onClick={() => this.handleAdd()}/>
+            onClick={this.handleAdd}/>
          </ToolbarGroup>
    </Toolbar>
            <div>
@@ -159,11 +158,11 @@ const initial_state =  {
           actions={actionadd}
           modal={false}
           open={this.state.openCreate}
-          onRequestClose={() => this.handleAdd()}
+          onRequestClose={this.handleAdd}
           autoScrollBodyContent={true}
         >
           <BucketlistForm
-            onSubmit={(values) => this.handlePost(values)}
+            onSubmit={this.handlePost}
           />
         </Dialog>
         <Dialog
@@ -171,11 +170,11 @@ const initial_state =  {
          actions={actionedit}
          modal={false}
          open={this.state.openEdit}
-         onRequestClose={() => this.handleEdit()}
+         onRequestClose={this.handleEdit}
          autoScrollBodyContent={true}
        >
          <BucketlistEditForm
-           onSubmit={(values) => this.handlePut(values)}
+           onSubmit={this.handlePut}
          />
        </Dialog>
        <Dialog
@@ -188,10 +187,11 @@ const initial_state =  {
       value={this.state.value}
       onChange={this.handleChange}
     >
-      <Tab label="All Items" value="a">
+      <Tab
+        style={{
+          backgroundColor : "#A1887F"}}
+        >
               <ItemContainer />
-      </Tab>
-      <Tab label="Single Bucketlists Items" value="b">
       </Tab>
       </Tabs>
       </Dialog>

@@ -1,16 +1,16 @@
-import React from 'react';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import Chip from 'material-ui/Chip';
+import React from "react";
+import {Card, CardHeader, CardText} from "material-ui/Card";
+import FlatButton from "material-ui/FlatButton";
+import Chip from "material-ui/Chip";
 
 
 
 const Details = (props) => (
   <Card style={{
-    display: 'inline-block',
+    display: "inline-block",
     margin: 12,
-    width: '35vw',
-    transitionDuration: '0.3s'}}
+    width: "40vw",
+    transitionDuration: "0.3s"}}
     onClick={props.getDetails}
     >
     <CardHeader
@@ -19,8 +19,8 @@ const Details = (props) => (
     <CardText >
       <p>{props.intro}</p>
       <div style={{
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
   }}>
       <Chip>
         {props.date}

@@ -1,17 +1,17 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Field, reduxForm , formValueSelector} from 'redux-form'
-import TextField from 'material-ui/TextField'
+import React from "react"
+import { connect } from "react-redux"
+import { Field, reduxForm , formValueSelector} from "redux-form"
+import TextField from "material-ui/TextField"
 
 const validate = values => {
   const errors = {}
   const requiredFields = [
-    'title',
-    'intro',
+    "title",
+    "intro",
   ]
   requiredFields.forEach(field => {
     if (!values[field]) {
-      errors[field] = 'Required'
+      errors[field] = "Required"
     }
   })
 }
@@ -55,15 +55,15 @@ let ItemForm = props => {
 }
 
 ItemForm = reduxForm({
-  form: 'ItemForm',
+  form: "ItemForm",
   validate,
 })(ItemForm)
 
-const selector = formValueSelector('ItemForm');
+const selector = formValueSelector("ItemForm");
 
 const mapStateToProps = state => {
-  const title = selector(state, 'title')
-  const intro = selector(state, 'intro')
+  const title = selector(state, "title")
+  const intro = selector(state, "intro")
    return {
       title,
       intro

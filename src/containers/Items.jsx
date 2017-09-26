@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
 import {
   getBucketlistsItems,
   getOneBucketlistItem,
   postBucketlistsItems,
   editBucketlistsItems,
   deleteBucketlistsItems
- } from '../actions/itemsActions';
+ } from "../actions/itemsActions";
 
- import ItemForm from '../components/itemForm';
-  import ItemEditForm from '../components/editItem';
- import Details from '../components/bucketlistDetails';
+ import ItemForm from "../components/itemForm";
+  import ItemEditForm from "../components/editItem";
+ import Details from "../components/bucketlistDetails";
 
 
  const initialState = {
-   title : '',
-   intro : '',
+   title : "",
+   intro : "",
    openItemEdit: false
  }
  class ItemContainer extends Component {
@@ -67,9 +67,12 @@ import {
 
      renderItems(){
      const { allItems } = this.props
-       if( allItems.length > 0){
+     if (allItems.length > 0){
+     const { singleBucketlist } = this.props
+     const bucketItems = allItems.filter(item => item.owner === singleBucketlist.id)
+       if( bucketItems.length > 0){
          return (
-           allItems.map((item) =>(
+           bucketItems.map((item) =>(
              <Details
                date={item.date_created}
                dateUpdated={item.date_updated}
@@ -86,7 +89,7 @@ import {
        return (
          <h4>No Items yet!</h4>
         )
-   }
+   }}
 
    render(){
      const actionedit = [

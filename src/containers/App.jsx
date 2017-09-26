@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Authentication from './Auth';
-import Dashboard from './dashboard';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Authentication from "./Auth";
+import Dashboard from "./dashboard";
 
 class App extends Component {
   constructor(props){

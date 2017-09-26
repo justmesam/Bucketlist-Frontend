@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { registerUser, loginUser } from '../actions/authActions';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import RegisterForm from '../components/registerForm';
-import LoginForm from '../components/logInForm';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { registerUser, loginUser } from "../actions/authActions";
+import {Tabs, Tab} from "material-ui/Tabs";
+import RegisterForm from "../components/registerForm";
+import LoginForm from "../components/logInForm";
 
 class Authentication extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
+      email: "",
+      password: ""
     };
   }
 
@@ -37,9 +37,11 @@ class Authentication extends Component {
    }
   render(){
     return (
-    <div>
-      <Tabs>
-    <Tab label="Register" >
+    <div >
+      <Tabs style={{width : "40vw"}}>
+    <Tab style={{
+      backgroundColor : "#A1887F"}}
+      label="Register" >
       <RegisterForm
         onSubmit={(values) => this.handleRegister(values)}
       />
