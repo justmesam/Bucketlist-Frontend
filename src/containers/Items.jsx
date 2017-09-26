@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 import RaisedButton from 'material-ui/RaisedButton';
-import DropDownMenu from "material-ui/DropDownMenu";
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from "material-ui/Toolbar";
 import {
   getBucketlistsItems,
