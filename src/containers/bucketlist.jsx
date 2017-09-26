@@ -3,11 +3,7 @@ import { connect } from "react-redux";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
-import DropDownMenu from "material-ui/DropDownMenu";
-import IconMenu from "material-ui/IconMenu";
-import IconButton from "material-ui/IconButton";
 import {Tabs, Tab} from "material-ui/Tabs";
-import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from "material-ui/Toolbar";
 import {
   getBucketlists,

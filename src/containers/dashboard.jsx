@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import FlatButton from "material-ui/FlatButton";
 import NavBar from "../components/layout/navBars"
 import BucketContainer from "./bucketlist";
 
 class Dashboard extends Component {
-  constructor(props){
-    super(props);
-  }
   render(){
     return (
     <div>
