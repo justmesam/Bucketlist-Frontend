@@ -18,6 +18,11 @@ export default (state=initial_state, action) => {
       ...state,
       singleBucketlist: action.payload.data
     };
+  case "SEARCH_BUCKETLIST_FULFILLED":
+    return {
+      ...state,
+      searchedBucketlist: action.payload.data
+    };
   case "POST_BUCKETLIST_FULFILLED":
     return {
       ...state,
