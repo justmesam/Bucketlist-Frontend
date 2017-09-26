@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
+import RaisedButton from 'material-ui/RaisedButton';
+import DropDownMenu from "material-ui/DropDownMenu";
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from "material-ui/Toolbar";
 import {
   getBucketlistsItems,
   getOneBucketlistItem,
@@ -16,16 +19,19 @@ import {
 
 
  const initialState = {
-   title : "",
-   intro : "",
-   openItemEdit: false
+   openItemEdit: false,
+   openItemAdd: false
  }
  class ItemContainer extends Component {
    constructor(props) {
      super(props);
      this.state = initialState
    }
-   handlePostItem(values){
+
+   handlePostItem = () => {
+     this.setState({ openItemAdd: !this.openItemAdd })
+   }
+   handlePostItemForm = (values) => {
      this.setState({
        title: values.title,
        intro: values.intro
@@ -36,16 +42,16 @@ import {
        this.props.postBucketlistsItems(singleBucketlist.id, { title , intro})
      }, 1000)
    }
-   handleDeleteItem(id){
+   handleDeleteItem = (id) => {
      const _id = this.props.singleBucketlist.id
      this.props.deleteBucketlistsItems(_id, id)
    }
-   handlePutItem(id){
+   handlePutItem = (id) => {
      this.setState({
        id: id,
        openItemEdit: !this.openItemEdit }
      )}
-   handlePutItemform(values, id){
+   handlePutItemform = (values, id) => {
      this.setState({
        title: values.title,
        intro: values.intro
@@ -89,32 +95,67 @@ import {
        return (
          <h4>No Items yet!</h4>
         )
-   }}
+   }else{
+   return (
+     <h4>No Items yet!</h4>
+    )
+}}
 
    render(){
      const actionedit = [
      <FlatButton
        label="Cancel"
        primary={true}
-       onClick={() => this.handlePutItem()}
+       onClick={this.handlePutItem}
+     />]
+     const actionadd = [
+     <FlatButton
+       label="Cancel"
+       primary={true}
+       onClick={this.handlePostItem}
      />]
      return (
        <div>
+         <Toolbar style={{margin:15}}>
+           <ToolbarTitle text={this.props.singleBucketlist.title} />
+         <ToolbarGroup>
+           <ToolbarSeparator />
+           <RaisedButton
+             label="Add an item"
+            backgroundColor="#a4c639"
+            style={{
+                    margin: 12,
+                  }}
+            onClick={this.handlePostItem}
+            />
+         </ToolbarGroup>
+       </Toolbar>
+       <div>
          {this.renderItems()}
+      </div>
          <div>
+           <Dialog
+            title="Create an item"
+            actions={actionadd}
+            modal={false}
+            open={this.state.openItemAdd}
+            onRequestClose={this.handlePostItem}
+            autoScrollBodyContent={true}
+          >
            <ItemForm
-             onSubmit={(values) => this.handlePostItem(values)}
+             onSubmit={this.handlePostItemForm}
            />
+          </Dialog>
            <Dialog
             title="Edit an item"
             actions={actionedit}
             modal={false}
             open={this.state.openItemEdit}
-            onRequestClose={() => this.handlePutItem()}
+            onRequestClose={this.handlePutItem}
             autoScrollBodyContent={true}
           >
             <ItemEditForm
-             onSubmit={(values) => this.handlePutItemform(values)}
+             onSubmit={this.handlePutItemform}
             />
           </Dialog>
 
