@@ -4,13 +4,16 @@ import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
 import {Tabs, Tab} from "material-ui/Tabs";
+import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from "material-ui/Toolbar";
 import {
   getBucketlists,
   getOneBucketlist,
   postBucketlists,
   editBucketlists,
-  deleteBucketlists
+  deleteBucketlists,
+  searchBuckets
 } from "../actions/bucketlistsActions";
 
 import BucketlistEditForm from "../components/editBucketlist";
@@ -38,6 +41,11 @@ const initial_state =  {
    handleAdd = () => {
      this.setState({openCreate : !this.state.openCreate})
    }
+   handleSearch = (event) => {
+     this.setState({
+    value: event.target.value,
+  });
+};
    handleChange = (value) => {
     this.setState({
       value: value,
@@ -81,6 +89,10 @@ const initial_state =  {
      }, 1000)
      setTimeout(() => {this.setState(initial_state)}, 2000)
    }
+   handleSearchBucket = () => {
+     const { value } = this.state;
+     this.props.searchBuckets(value)
+   }
    renderBucketlists(){
      const { bucketlists } = this.props
      if( bucketlists.length < 1){
@@ -103,6 +115,25 @@ const initial_state =  {
          />
      )))
    }
+
+   renderSearch(){
+     if( this.props.searchedBucketlist ){
+       const { searchedBucketlist } = this.props
+     return (
+       searchedBucketlist.map((bucketlist) => (
+         <Details
+           date={bucketlist.date_created}
+           dateUpdated={bucketlist.date_updated}
+           getDetails={() => this.handleGetOne(bucketlist.id)}
+           key={bucketlist.id}
+           title={bucketlist.title}
+           intro={bucketlist.intro}
+           view={this.handleView}
+           edit={() => this.handleEdit(bucketlist.id)}
+           delete={() => this.handleDelete(bucketlist.id)}
+         />
+     )))
+   }}
 
    render(){
      const actionadd = [
@@ -133,15 +164,23 @@ const initial_state =  {
        <div>
          <Toolbar style={{margin:15}}>
            <ToolbarTitle text="Bucketlists" />
-         <ToolbarGroup>
+           <ToolbarGroup>
+           <TextField
+            id="text-field-controlled"
+            hintText="Search Bucketlists"
+            value={this.state.value}
+            onChange={this.handleSearch}
+           />
+           <IconButton
+             onClick={this.handleSearchBucket}
+             iconClassName="muidocs-icon-custom-github" />
            <ToolbarSeparator />
            <RaisedButton
-             style={{}}
             label="Add a bucketlist"
             secondary={true}
             onClick={this.handleAdd}/>
          </ToolbarGroup>
-   </Toolbar>
+        </Toolbar>
            <div>
              {this.renderBucketlists()}
          </div>
@@ -194,8 +233,8 @@ const initial_state =  {
 
 
  const mapStateToProps = (state) => {
-const { bucketlists, singleBucketlist } = state.bucketlists;
-  return { bucketlists, singleBucketlist };
+const { bucketlists, singleBucketlist, searchedBucketlist } = state.bucketlists;
+  return { bucketlists, singleBucketlist, searchedBucketlist };
 };
 
 export default connect(mapStateToProps, {
@@ -203,6 +242,7 @@ export default connect(mapStateToProps, {
   getOneBucketlist,
   postBucketlists,
   editBucketlists,
+  searchBuckets,
   deleteBucketlists })(BucketContainer);
 
 export { BucketContainer };
