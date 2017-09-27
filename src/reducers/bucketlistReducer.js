@@ -11,7 +11,18 @@ export default (state=initial_state, action) => {
     return{
       ...state,
       singleBucketlist:null,
+      searched: false,
       bucketlists: action.payload.data,
+    };
+
+  case "PAGINATE_BUCKETLIST_FULFILLED":
+    return{
+      ...state,
+      singleBucketlist:null,
+      searched: false,
+      bucketlists: action.payload.data.bucketlists,
+      nextPage:action.payload.data.next_page,
+      prevPage:action.payload.data.previous_page
     };
   case "GET_ONE_BUCKETLIST_FULFILLED":
     return {
@@ -21,7 +32,8 @@ export default (state=initial_state, action) => {
   case "SEARCH_BUCKETLIST_FULFILLED":
     return {
       ...state,
-      searchedBucketlist: action.payload.data
+      searchedBucketlist: action.payload.data.bucketlists,
+      searched: true
     };
   case "POST_BUCKETLIST_FULFILLED":
     return {
