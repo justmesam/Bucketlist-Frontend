@@ -6,6 +6,7 @@ const POST_BUCKETLIST = "POST_BUCKETLIST";
 const EDIT_BUCKETLIST = "EDIT_BUCKETLIST";
 const DELETE_BUCKETLIST = "DELETE_BUCKETLIST";
 const SEARCH_BUCKETLIST = "SEARCH_BUCKETLIST";
+const PAGINATE_BUCKETLIST = "PAGINATE_BUCKETLIST";
 
 export const getBucketlists = () => ({
   type : GET_BUCKETLIST,
@@ -35,4 +36,9 @@ export const deleteBucketlists = ( id ) => ({
 export const searchBuckets = ( title ) => ({
   type : SEARCH_BUCKETLIST,
   payload : instance.get(`/search/?q=${title}`)
+});
+
+export const paginateBuckets = ( limit ) => ({
+  type : PAGINATE_BUCKETLIST,
+  payload : instance.get(`/bucketlists/?limit=${limit}&page=1`)
 });
