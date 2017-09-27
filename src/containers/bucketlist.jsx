@@ -20,6 +20,7 @@ import BucketlistEditForm from "../components/editBucketlist";
 import BucketlistForm from "../components/bucketlistForm";
 import ItemContainer from "./Items";
 import Details from "../components/bucketlistDetails";
+import SearchTiles from "../components/searchDisplay";
 
 const initial_state =  {
    openCreate : false,
@@ -182,6 +183,9 @@ const initial_state =  {
          </ToolbarGroup>
         </Toolbar>
            <div>
+             <div>
+               {this.props.searched ? <SearchTiles data={this.props.searchedBucketlist}/> : <div></div>}
+             </div>
              {this.renderBucketlists()}
          </div>
          <Dialog
@@ -233,8 +237,8 @@ const initial_state =  {
 
 
  const mapStateToProps = (state) => {
-const { bucketlists, singleBucketlist, searchedBucketlist } = state.bucketlists;
-  return { bucketlists, singleBucketlist, searchedBucketlist };
+const { bucketlists, singleBucketlist, searchedBucketlist, searched } = state.bucketlists;
+  return { bucketlists, searched, singleBucketlist, searchedBucketlist };
 };
 
 export default connect(mapStateToProps, {
