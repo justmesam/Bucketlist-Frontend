@@ -1,23 +1,23 @@
 import React from "react";
-import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import {GridList, GridTile} from "material-ui/GridList";
+import IconButton from "material-ui/IconButton";
+import StarBorder from "material-ui/svg-icons/toggle/star-border";
 
 
 
 const styles = {
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
   },
   gridList: {
-    display: 'flex',
-    flexWrap: 'nowrap',
-    overflowX: 'auto',
+    display: "flex",
+    flexWrap: "nowrap",
+    overflowX: "auto",
   },
   titleStyle: {
-    color: 'rgb(0, 0, 0)',
+    color: "rgb(0, 0, 0)",
   },
 };
 
