@@ -77,7 +77,7 @@ class NavBar extends Component {
         <AppBar
           style={{
             backgroundColor : "#A1887F"}}
-          title="La - Bucketlist"
+          title={`Hello, ${this.props.user}`}
           iconElementRight={
             <IconMenu
               iconButtonElement={
