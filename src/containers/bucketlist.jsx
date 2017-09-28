@@ -4,8 +4,11 @@ import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
 import {Tabs, Tab} from "material-ui/Tabs";
-import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
+import TextField from "material-ui/TextField";
+import IconButton from "material-ui/IconButton";
+import SelectField from "material-ui/SelectField";
+import MenuItem from "material-ui/MenuItem";
+import Pagination from "material-ui-pagination";
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from "material-ui/Toolbar";
 import {
   getBucketlists,
@@ -13,7 +16,8 @@ import {
   postBucketlists,
   editBucketlists,
   deleteBucketlists,
-  searchBuckets
+  searchBuckets,
+  paginateBuckets
 } from "../actions/bucketlistsActions";
 
 import BucketlistEditForm from "../components/editBucketlist";
@@ -26,9 +30,8 @@ const initial_state =  {
    openCreate : false,
    openEdit : false,
    openView:false,
-   title : "",
-   intro : "",
-   id: ""
+   value: 0,
+   page:1
  }
  class BucketContainer extends Component {
    constructor(props) {
@@ -44,7 +47,7 @@ const initial_state =  {
    }
    handleSearch = (event) => {
      this.setState({
-    value: event.target.value,
+    search: event.target.value,
   });
 };
    handleChange = (value) => {
@@ -91,8 +94,18 @@ const initial_state =  {
      setTimeout(() => {this.setState(initial_state)}, 2000)
    }
    handleSearchBucket = () => {
-     const { value } = this.state;
-     this.props.searchBuckets(value)
+     const { search } = this.state;
+     this.props.searchBuckets(search)
+   }
+   handleChangeLimit = (event, index, value) => {
+     this.setState({value})
+     setTimeout(() => {
+       this.props.paginateBuckets(this.state.value, this.state.page)
+     }, 1000)
+   };
+   renderPaginated(){
+     return(
+     this.renderBucketlists())
    }
    renderBucketlists(){
      const { bucketlists } = this.props
@@ -116,25 +129,6 @@ const initial_state =  {
          />
      )))
    }
-
-   renderSearch(){
-     if( this.props.searchedBucketlist ){
-       const { searchedBucketlist } = this.props
-     return (
-       searchedBucketlist.map((bucketlist) => (
-         <Details
-           date={bucketlist.date_created}
-           dateUpdated={bucketlist.date_updated}
-           getDetails={() => this.handleGetOne(bucketlist.id)}
-           key={bucketlist.id}
-           title={bucketlist.title}
-           intro={bucketlist.intro}
-           view={this.handleView}
-           edit={() => this.handleEdit(bucketlist.id)}
-           delete={() => this.handleDelete(bucketlist.id)}
-         />
-     )))
-   }}
 
    render(){
      const actionadd = [
@@ -165,11 +159,24 @@ const initial_state =  {
        <div>
          <Toolbar style={{margin:15}}>
            <ToolbarTitle text="Bucketlists" />
+           <ToolbarGroup firstChild={true}>
+          <SelectField
+            value={this.state.value}
+            floatingLabelText="Limit per page"
+            onChange={this.handleChangeLimit}>
+            <MenuItem value={0} primaryText="None" />
+            <MenuItem value={3} primaryText="0 - 3" />
+            <MenuItem value={5} primaryText="0 - 5" />
+            <MenuItem value={8} primaryText="0 - 8" />
+            <MenuItem value={10} primaryText="0 - 10" />
+            <MenuItem value={15} primaryText="0 - 15" />
+          </SelectField>
+         </ToolbarGroup>
            <ToolbarGroup>
            <TextField
             id="text-field-controlled"
             hintText="Search Bucketlists"
-            value={this.state.value}
+            value={this.state.search}
             onChange={this.handleSearch}
            />
            <IconButton
@@ -184,9 +191,24 @@ const initial_state =  {
         </Toolbar>
            <div>
              <div>
-               {this.props.searched ? <SearchTiles data={this.props.searchedBucketlist}/> : <div></div>}
+               {this.props.searched ?
+                 <SearchTiles data={this.props.searchedBucketlist}/> :
+                 <div></div>}
              </div>
-             {this.renderBucketlists()}
+              <div     style={{
+                     display:"flex",
+                     justifyContent: "center",
+                     alignItems: "center"
+                 }}>
+               {this.props.paginated ? <Pagination
+                                     total = { this.props.pages }
+                                     current = { this.props.current }
+                                     display ={6}
+                                   /> : <br />}
+             </div>
+             {this.state.value === 0 &&
+               !this.props.paginated ? this.renderBucketlists() :
+                this.renderPaginated()}
          </div>
          <Dialog
           title="Create a Bucketlist"
@@ -237,8 +259,11 @@ const initial_state =  {
 
 
  const mapStateToProps = (state) => {
-const { bucketlists, singleBucketlist, searchedBucketlist, searched } = state.bucketlists;
-  return { bucketlists, searched, singleBucketlist, searchedBucketlist };
+const { bucketlists, singleBucketlist,
+   searchedBucketlist, searched,
+   current, paginated, pages } = state.bucketlists;
+  return { bucketlists, searched, singleBucketlist,
+     searchedBucketlist, current, paginated, pages };
 };
 
 export default connect(mapStateToProps, {
@@ -247,6 +272,7 @@ export default connect(mapStateToProps, {
   postBucketlists,
   editBucketlists,
   searchBuckets,
+  paginateBuckets,
   deleteBucketlists })(BucketContainer);
 
 export { BucketContainer };
