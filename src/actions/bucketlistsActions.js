@@ -38,7 +38,7 @@ export const searchBuckets = ( title ) => ({
   payload : instance.get(`/search/?q=${title}`)
 });
 
-export const paginateBuckets = ( {limit, page} ) => ({
+export const paginateBuckets = ( limit, page ) => ({
   type : PAGINATE_BUCKETLIST,
   payload : instance.get(`/bucketlists/?limit=${limit}&page=${page}`)
 });
