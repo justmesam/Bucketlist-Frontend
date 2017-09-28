@@ -7,6 +7,9 @@ http://docs.labucketlist.apiary.io/
 
   * React.js : A javascript library for building interfaces
   * Redux : Redux is a predictable state container for JavaScript apps.   
-  * Material-ui : Google's material design UI components built with React.
+  * Material-ui : Google"s material design UI components built with React.
 
- 
+
+ ### Getting Started
+
+  
