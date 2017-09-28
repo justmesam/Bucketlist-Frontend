@@ -27,6 +27,7 @@ import Details from "../components/bucketlistDetails";
 import SearchTiles from "../components/searchDisplay";
 
 const initial_state =  {
+   openDelete : false,
    openCreate : false,
    openEdit : false,
    openView:false,
@@ -61,8 +62,16 @@ const initial_state =  {
      this.setState({openEdit : !this.state.openEdit,
                    id: bucketid})
    }
-   handleDelete = (id) => {
+   handleDelete = () => {
+     const { id } = this.state
      this.props.deleteBucketlists(id)
+     this.setState({openDelete : !this.state.openDelete})
+   }
+   handleDeleteModal = (id) => {
+     this.setState({
+       id : id,
+       openDelete : !this.state.openDelete
+   })
    }
    handlePost = (values) => {
      this.setState({
@@ -125,7 +134,7 @@ const initial_state =  {
            intro={bucketlist.intro}
            view={this.handleView}
            edit={() => this.handleEdit(bucketlist.id)}
-           delete={() => this.handleDelete(bucketlist.id)}
+           delete={() => this.handleDeleteModal(bucketlist.id)}
          />
      )))
    }
@@ -137,6 +146,18 @@ const initial_state =  {
         primary={true}
         onClick={this.handleAdd}
       />]
+      const actionaDelete = [
+        <FlatButton
+          label="Delete"
+          secondary={true}
+          onClick={this.handleDelete}
+        />,
+        <FlatButton
+          label="Cancel"
+          primary={true}
+          onClick={this.handleDeleteModal}
+        />
+      ]
       const actionedit = [
       <FlatButton
         label="Cancel"
@@ -222,6 +243,17 @@ const initial_state =  {
             onSubmit={this.handlePost}
           />
         </Dialog>
+        <Dialog
+         title="Delete a Bucketlist"
+         actions={actionaDelete}
+         modal={false}
+         open={this.state.openDelete}
+         onRequestClose={this.handleDeleteModal}
+         autoScrollBodyContent={true}
+       >
+        <em style={{color:"red"}}> Are you Sure you want to delete this? </em>
+
+       </Dialog>
         <Dialog
          title="Edit a Bucketlist"
          actions={actionedit}
