@@ -8,10 +8,7 @@ import LoginForm from "../components/logInForm";
 class Authentication extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: "",
-      password: ""
-    };
+    this.state = {};
   }
 
   handleRegister(values) {
