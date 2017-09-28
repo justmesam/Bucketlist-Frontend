@@ -36,7 +36,7 @@ const SearchTiles = (props) => (
         </GridTile>
       ))}
     </GridList>
-</div>
-)
+  </div>
+);
 
 export default SearchTiles;
