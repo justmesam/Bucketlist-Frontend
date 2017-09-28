@@ -5,6 +5,8 @@ import {Tabs, Tab} from "material-ui/Tabs";
 import RegisterForm from "../components/registerForm";
 import LoginForm from "../components/logInForm";
 
+import background from "../components/static/nairobi-wallpapers.jpg";
+
 class Authentication extends Component {
   constructor(props) {
     super(props);
@@ -13,52 +15,56 @@ class Authentication extends Component {
 
   handleRegister(values) {
     this.setState({
-       email : values.email,
-        password : values.password })
+      email : values.email,
+      password : values.password });
     setTimeout(() => {
-      const { email, password } = this.state
+      const { email, password } = this.state;
       this.props.registerUser({
-        email,password,})
-    }, 1000)
-   }
+        email,password,});
+    }, 1000);
+  }
 
-   handleLogin(values) {
-     this.setState({
-        email : values.email,
-         password : values.password })
-     setTimeout(() => {
-       const { email, password } = this.state
-       this.props.loginUser({
-         email,password,})
-     }, 1000)
-   }
+  handleLogin(values) {
+    this.setState({
+      email : values.email,
+      password : values.password });
+    setTimeout(() => {
+      const { email, password } = this.state;
+      this.props.loginUser({
+        email,password,});
+    }, 1000);
+  }
   render(){
     return (
-    <div >
-      <Tabs style={{width : "40vw"}}>
-    <Tab style={{
-      backgroundColor : "#A1887F"}}
-      label="Register" >
-      <RegisterForm
-        onSubmit={(values) => this.handleRegister(values)}
-      />
-    </Tab>
-    <Tab label="Login" >
-      <LoginForm
-        onSubmit={(values) => this.handleLogin(values)}
-       />
-    </Tab>
-  </Tabs>
-    </div>
-);
+      <div  style={{
+        height: "85vh",
+        display:"flex",
+        justifyContent: "center",
+        alignItems: "center"}}>
+        <Tabs style={{width : "40vw", backgroundColor:"#fff", boxShadow: "7px 7px 5px #888888"}}>
+          <Tab style={{
+            backgroundColor : "#A1887F"}}
+          label="Register" >
+            <RegisterForm
+              onSubmit={(values) => this.handleRegister(values)}
+            />
+          </Tab>
+          <Tab label="Login" >
+            <LoginForm
+              onSubmit={(values) => this.handleLogin(values)}
+            />
+          </Tab>
+        </Tabs>
+      </div>
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   const signedIn = state.authentication;
   return { signedIn };
-}
+};
 
-export default connect(mapStateToProps, {registerUser, loginUser})(Authentication)
+export default connect(mapStateToProps, {registerUser, loginUser})(Authentication);
 
-export { Authentication }
+export { Authentication };
