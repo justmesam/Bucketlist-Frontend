@@ -200,14 +200,16 @@ const initial_state =  {
             value={this.state.search}
             onChange={this.handleSearch}
            />
-           <IconButton
+           <FlatButton
+             label="Search"
+             primary={true}
              onClick={this.handleSearchBucket}
-             iconClassName="muidocs-icon-custom-github" />
+           />
            <ToolbarSeparator />
            <RaisedButton
             label="Add a bucketlist"
             secondary={true}
-            onClick={this.handleAdd}/>
+            onClick={this.handleSearchBucket}/>
          </ToolbarGroup>
         </Toolbar>
            <div>
