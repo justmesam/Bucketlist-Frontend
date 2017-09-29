@@ -10,6 +10,27 @@ http://docs.labucketlist.apiary.io/
   * Material-ui : Google"s material design UI components built with React.
 
 
- ### Getting Started
+ #### Getting Started
 
-  
+
+These are instructions on how to set up the application on a local development machine.
+
+Clone the repository     
+`git clone https://github.com/justmesam/Bucketlist-Frontend.git`     
+Install the dependencies     
+`npm install`     
+Run the application   
+`npm start`
+
+#### Features    
+
+
+>     Users can create accounts
+      Users can sigin and signout of application
+      Users can create,edit,view and delete bucket lists
+      Users can create,edit,view and delete bucket list items
+      Users can reset passwords
+
+
+
+  The online version is   https://la-bucketlist-front.herokuapp.com/
