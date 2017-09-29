@@ -22,6 +22,8 @@ export default (state=initial_state, action) => {
   case "RESET_PASSWORD_FULFILLED":
     return {...state,
       message : action.payload.data.message};
+  case "DELETE_USER_FULFILLED":
+    return {...initial_state};
   case "LOGOUT_FULFILLED":
     return {...initial_state};
   default:

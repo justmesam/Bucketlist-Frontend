@@ -4,16 +4,19 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
-    "material-ui": "^0.19.1",
+    "material-ui": "^0.19.2",
+    "material-ui-pagination": "^1.1.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-materialize": "^1.0.14",
+    "react-paginate": "^4.4.4",
     "react-redux": "^5.0.6",
     "react-scripts": "1.0.13",
     "redux": "^3.7.2",
     "redux-catch-promise": "^1.0.3",
     "redux-form": "^7.0.4",
     "redux-form-website-template": "0.0.76",
+    "redux-jest": "^1.1.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^4.9.1",
     "redux-promise-middleware": "^4.4.1",
@@ -24,5 +27,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "eslint": "^4.7.2",
+    "eslint-plugin-react": "^7.4.0"
   }
 }

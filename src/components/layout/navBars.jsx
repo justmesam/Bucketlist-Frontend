@@ -12,23 +12,36 @@ import { logoutUser,
         deleteUser
  } from "../../actions/authActions";
  import ChangePasswordForm from "../changePassword";
+ import LoginForm from "../logInForm";
 
 
 class NavBar extends Component {
   constructor(props){
     super(props);
     this.state = {
-      openChange : false
+      openChange : false,
+      deleteAccount: false
     }
   }
   handleChangeModal = () => {
     this.setState({openChange : !this.state.openChange})
   }
+  handleDeleteUser = () =>{
+    this.setState({ deleteAccount : !this.state.deleteAccount})
+  }
   handleLogout = () => {
     this.props.logoutUser()
     localStorage.clear()
   }
-
+  handleDeleteAuth = (values) =>{
+    this.setState({ password : values.password})
+    setTimeout(() => {
+      const { password } = this.state
+      this.props.deleteUser(
+        password)
+        localStorage.clear()
+    }, 1000)
+  }
   handleChangePassword = (values) => {
     this.setState({
       old_password : values.old_password,
@@ -53,13 +66,18 @@ class NavBar extends Component {
       primary={true}
       onClick={this.handleChangeModal}
     />]
+    const actionDelete = [
+    <FlatButton
+      label="Cancel"
+      primary={true}
+      onClick={this.handleDeleteUser}
+    />]
     return (
       <div>
         <AppBar
           style={{
-            backgroundColor : "#A1887F",
-            height: "5vw"}}
-          title="La - Bucketlist"
+            backgroundColor : "#A1887F"}}
+          title={`Hello, ${this.props.user}`}
           iconElementRight={
             <IconMenu
               iconButtonElement={
@@ -72,7 +90,7 @@ class NavBar extends Component {
             >
               <MenuItem primaryText="Change password" onClick={this.handleChangeModal} />
               <MenuItem primaryText="Log out" onClick={this.handleLogout} />
-              <MenuItem primaryText="Delete Account" />
+              <MenuItem primaryText="Delete Account" onClick={this.handleDeleteUser}/>
             </IconMenu>
 
           }
@@ -89,6 +107,19 @@ class NavBar extends Component {
            onSubmit={this.handleChangePassword}
          />
        </Dialog>
+       <Dialog
+        title="Delete Account"
+        actions={actionDelete}
+        modal={false}
+        open={this.state.deleteAccount}
+        onRequestClose={this.handleDeleteUser}
+        autoScrollBodyContent={true}
+      >
+        <h3 style={{color: "red" }}>Are you sure you want to delete account??</h3>
+        <LoginForm
+          onSubmit={this.handleDeleteAuth}
+         />
+      </Dialog>
       </div>
     );
   }
@@ -99,6 +130,6 @@ const mapStateToProps = (state) => {
   return { token, authenticated, user}
 }
 
-export default connect(mapStateToProps, {logoutUser, changePassword})(NavBar)
+export default connect(mapStateToProps, {logoutUser, changePassword, deleteUser})(NavBar)
 
 export { NavBar };

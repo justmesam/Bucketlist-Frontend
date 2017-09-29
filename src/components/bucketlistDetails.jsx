@@ -9,7 +9,7 @@ const Details = (props) => (
   <Card style={{
     display: "inline-block",
     margin: 12,
-    width: "40vw",
+    width: "33vw",
     transitionDuration: "0.3s"}}
     onClick={props.getDetails}
     >

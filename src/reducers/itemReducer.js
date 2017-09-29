@@ -27,7 +27,7 @@ export default (state=initial_state, action) => {
       ...state,
       allItems : _.unionBy([action.payload.data], state.allItems, "id")
     };
-  case "DELETE_BUCKETLIST_ITEMS_FULFILLED":
+  case "DELETE_BUCKETLIST_ITEMS_FULFILLED":{
     const itemId = action.payload.data.item;
     const items = state.allItems;
     const filtereditems = items.filter(
@@ -37,6 +37,7 @@ export default (state=initial_state, action) => {
       ...state,
       allItems: filtereditems,
     };
+  }
   default:
     return state;
 

@@ -3,32 +3,36 @@ import { connect } from "react-redux";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
-import DropDownMenu from "material-ui/DropDownMenu";
-import IconMenu from "material-ui/IconMenu";
-import IconButton from "material-ui/IconButton";
 import {Tabs, Tab} from "material-ui/Tabs";
-import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
+import TextField from "material-ui/TextField";
+import IconButton from "material-ui/IconButton";
+import SelectField from "material-ui/SelectField";
+import MenuItem from "material-ui/MenuItem";
+import Pagination from "material-ui-pagination";
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from "material-ui/Toolbar";
 import {
   getBucketlists,
   getOneBucketlist,
   postBucketlists,
   editBucketlists,
-  deleteBucketlists
+  deleteBucketlists,
+  searchBuckets,
+  paginateBuckets
 } from "../actions/bucketlistsActions";
 
 import BucketlistEditForm from "../components/editBucketlist";
 import BucketlistForm from "../components/bucketlistForm";
 import ItemContainer from "./Items";
 import Details from "../components/bucketlistDetails";
+import SearchTiles from "../components/searchDisplay";
 
 const initial_state =  {
+   openDelete : false,
    openCreate : false,
    openEdit : false,
    openView:false,
-   title : "",
-   intro : "",
-   id: ""
+   value: 0,
+   page:1
  }
  class BucketContainer extends Component {
    constructor(props) {
@@ -42,6 +46,11 @@ const initial_state =  {
    handleAdd = () => {
      this.setState({openCreate : !this.state.openCreate})
    }
+   handleSearch = (event) => {
+     this.setState({
+    search: event.target.value,
+  });
+};
    handleChange = (value) => {
     this.setState({
       value: value,
@@ -53,8 +62,16 @@ const initial_state =  {
      this.setState({openEdit : !this.state.openEdit,
                    id: bucketid})
    }
-   handleDelete = (id) => {
+   handleDelete = () => {
+     const { id } = this.state
      this.props.deleteBucketlists(id)
+     this.setState({openDelete : !this.state.openDelete})
+   }
+   handleDeleteModal = (id) => {
+     this.setState({
+       id : id,
+       openDelete : !this.state.openDelete
+   })
    }
    handlePost = (values) => {
      this.setState({
@@ -85,6 +102,20 @@ const initial_state =  {
      }, 1000)
      setTimeout(() => {this.setState(initial_state)}, 2000)
    }
+   handleSearchBucket = () => {
+     const { search } = this.state;
+     this.props.searchBuckets(search)
+   }
+   handleChangeLimit = (event, index, value) => {
+     this.setState({value})
+     setTimeout(() => {
+       this.props.paginateBuckets(this.state.value, this.state.page)
+     }, 1000)
+   };
+   renderPaginated(){
+     return(
+     this.renderBucketlists())
+   }
    renderBucketlists(){
      const { bucketlists } = this.props
      if( bucketlists.length < 1){
@@ -103,7 +134,7 @@ const initial_state =  {
            intro={bucketlist.intro}
            view={this.handleView}
            edit={() => this.handleEdit(bucketlist.id)}
-           delete={() => this.handleDelete(bucketlist.id)}
+           delete={() => this.handleDeleteModal(bucketlist.id)}
          />
      )))
    }
@@ -115,6 +146,18 @@ const initial_state =  {
         primary={true}
         onClick={this.handleAdd}
       />]
+      const actionaDelete = [
+        <FlatButton
+          label="Delete"
+          secondary={true}
+          onClick={this.handleDelete}
+        />,
+        <FlatButton
+          label="Cancel"
+          primary={true}
+          onClick={this.handleDeleteModal}
+        />
+      ]
       const actionedit = [
       <FlatButton
         label="Cancel"
@@ -137,21 +180,58 @@ const initial_state =  {
        <div>
          <Toolbar style={{margin:15}}>
            <ToolbarTitle text="Bucketlists" />
-         <ToolbarGroup value={1} firstChild={true}>
-           <DropDownMenu >
-           </DropDownMenu>
+           <ToolbarGroup firstChild={true}>
+          <SelectField
+            value={this.state.value}
+            floatingLabelText="Limit per page"
+            onChange={this.handleChangeLimit}>
+            <MenuItem value={0} primaryText="None" />
+            <MenuItem value={3} primaryText="0 - 3" />
+            <MenuItem value={5} primaryText="0 - 5" />
+            <MenuItem value={8} primaryText="0 - 8" />
+            <MenuItem value={10} primaryText="0 - 10" />
+            <MenuItem value={15} primaryText="0 - 15" />
+          </SelectField>
          </ToolbarGroup>
-         <ToolbarGroup>
+           <ToolbarGroup>
+           <TextField
+            id="text-field-controlled"
+            hintText="Search Bucketlists"
+            value={this.state.search}
+            onChange={this.handleSearch}
+           />
+           <FlatButton
+             label="Search"
+             primary={true}
+             onClick={this.handleSearchBucket}
+           />
            <ToolbarSeparator />
            <RaisedButton
-             style={{}}
             label="Add a bucketlist"
             secondary={true}
             onClick={this.handleAdd}/>
          </ToolbarGroup>
-   </Toolbar>
+        </Toolbar>
            <div>
-             {this.renderBucketlists()}
+             <div>
+               {this.props.searched ?
+                 <SearchTiles data={this.props.searchedBucketlist}/> :
+                 <div></div>}
+             </div>
+              <div     style={{
+                     display:"flex",
+                     justifyContent: "center",
+                     alignItems: "center"
+                 }}>
+               {this.props.paginated ? <Pagination
+                                     total = { this.props.pages }
+                                     current = { this.props.current }
+                                     display ={6}
+                                   /> : <br />}
+             </div>
+             {this.state.value === 0 &&
+               !this.props.paginated ? this.renderBucketlists() :
+                this.renderPaginated()}
          </div>
          <Dialog
           title="Create a Bucketlist"
@@ -165,6 +245,17 @@ const initial_state =  {
             onSubmit={this.handlePost}
           />
         </Dialog>
+        <Dialog
+         title="Delete a Bucketlist"
+         actions={actionaDelete}
+         modal={false}
+         open={this.state.openDelete}
+         onRequestClose={this.handleDeleteModal}
+         autoScrollBodyContent={true}
+       >
+        <em style={{color:"red"}}> Are you Sure you want to delete this? </em>
+
+       </Dialog>
         <Dialog
          title="Edit a Bucketlist"
          actions={actionedit}
@@ -202,8 +293,11 @@ const initial_state =  {
 
 
  const mapStateToProps = (state) => {
-const { bucketlists, singleBucketlist } = state.bucketlists;
-  return { bucketlists, singleBucketlist };
+const { bucketlists, singleBucketlist,
+   searchedBucketlist, searched,
+   current, paginated, pages } = state.bucketlists;
+  return { bucketlists, searched, singleBucketlist,
+     searchedBucketlist, current, paginated, pages };
 };
 
 export default connect(mapStateToProps, {
@@ -211,6 +305,8 @@ export default connect(mapStateToProps, {
   getOneBucketlist,
   postBucketlists,
   editBucketlists,
+  searchBuckets,
+  paginateBuckets,
   deleteBucketlists })(BucketContainer);
 
 export { BucketContainer };

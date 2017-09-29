@@ -1,7 +1,7 @@
 import axios from "axios";
 import store from "./store";
 
-const ApiUrl = "http://127.0.0.1:5000"
+const ApiUrl = "https://labucketlist-api.herokuapp.com/";
 const instance = axios.create({
   baseURL : `${ApiUrl}`,
   timeout : 5000,
@@ -15,7 +15,7 @@ instance.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token }`;
   }
-  return config
+  return config;
 });
 
 // instance.interceptors.response.use((response) => {
