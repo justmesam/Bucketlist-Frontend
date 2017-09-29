@@ -5,8 +5,6 @@ import {Tabs, Tab} from "material-ui/Tabs";
 import RegisterForm from "../components/registerForm";
 import LoginForm from "../components/logInForm";
 
-import background from "../components/static/nairobi-wallpapers.jpg";
-
 class Authentication extends Component {
   constructor(props) {
     super(props);
