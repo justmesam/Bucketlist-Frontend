@@ -209,7 +209,7 @@ const initial_state =  {
            <RaisedButton
             label="Add a bucketlist"
             secondary={true}
-            onClick={this.handleSearchBucket}/>
+            onClick={this.handleAdd}/>
          </ToolbarGroup>
         </Toolbar>
            <div>
