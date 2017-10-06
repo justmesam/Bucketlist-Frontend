@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/justmesam/Bucketlist-Frontend.svg?branch=master)](https://travis-ci.org/justmesam/Bucketlist-Frontend)s
 # Bucketlist_Frontend
 
 This is a client side implementation for consuming the bucketlist api documented  here;   
