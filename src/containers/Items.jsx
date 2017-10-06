@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
+import {  Link  } from "react-router-dom";
+import {blue500, red500, greenA200} from 'material-ui/styles/colors';
+import SvgIcon from 'material-ui/SvgIcon';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from "material-ui/Toolbar";
 import {
   getBucketlistsItems,
@@ -27,9 +30,9 @@ import {
      this.state = initialState
    }
 
-   handlePostItem = () => {
-     this.setState({ openItemAdd: !this.openItemAdd })
-   }
+   handlePostItem = () => (
+     this.setState({ openItemAdd: !this.state.openItemAdd })
+   )
    handlePostItemForm = (values) => {
      this.setState({
        title: values.title,
@@ -40,16 +43,24 @@ import {
        const { title, intro} = this.state
        this.props.postBucketlistsItems(singleBucketlist.id, { title , intro})
      }, 1000)
+     this.setState({ openItemAdd: !this.state.openItemAdd })
+   }
+   handleGetOne = (id) => {
+     const { allItems } = this.props
+     const { singleBucketlist } = this.props
+     if(allItems){
+     this.props.getOneBucketlistItem( singleBucketlist.id, id)
+   }
    }
    handleDeleteItem = (id) => {
      const _id = this.props.singleBucketlist.id
      this.props.deleteBucketlistsItems(_id, id)
    }
-   handlePutItem = (id) => {
+   handlePutItem = (id) => (
      this.setState({
        id: id,
-       openItemEdit: !this.openItemEdit }
-     )}
+       openItemEdit: !this.state.openItemEdit }
+     ))
    handlePutItemform = (values, id) => {
      this.setState({
        title: values.title,
@@ -80,6 +91,7 @@ import {
            bucketItems.map((item) =>(
              <Details
                date={item.date_created}
+               getDetails={() => this.handleGetOne(item.id)}
                dateUpdated={item.date_updated}
                key={item.id}
                title={item.title}
@@ -101,6 +113,11 @@ import {
 }}
 
    render(){
+     const HomeIcon = (props) => (
+      <SvgIcon {...props}>
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+      </SvgIcon>
+    )
      const actionedit = [
      <FlatButton
        label="Cancel"
@@ -115,9 +132,14 @@ import {
      />]
      return (
        <div>
+
          <Toolbar style={{margin:15}}>
-           <ToolbarTitle text={this.props.singleBucketlist.title} />
+           <Link to="/">
+            <HomeIcon  title={"Home"} color={blue500} style={{width: 60,
+                height: 60,}} />
+           </Link>
          <ToolbarGroup>
+           <ToolbarTitle style={{margin:15}} text={`Bucketlist Name : ${this.props.singleBucketlist.title}`} />
            <ToolbarSeparator />
            <RaisedButton
              label="Add an item"

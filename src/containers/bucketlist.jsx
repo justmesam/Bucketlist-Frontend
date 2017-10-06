@@ -9,6 +9,8 @@ import IconButton from "material-ui/IconButton";
 import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 import Pagination from "material-ui-pagination";
+import SearchBar from 'material-ui-search-bar'
+import { Redirect , Link  } from "react-router-dom";
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from "material-ui/Toolbar";
 import {
   getBucketlists,
@@ -46,17 +48,19 @@ const initial_state =  {
    handleAdd = () => {
      this.setState({openCreate : !this.state.openCreate})
    }
-   handleSearch = (event) => {
+   handleSearch = (value) => {
      this.setState({
-    search: event.target.value,
+    search: value,
   });
 };
    handleChange = (value) => {
     this.setState({
       value: value,
     })}
-  handleView = () => {
-       this.setState({openView : !this.state.openView})
+  handleView = (id) => {
+      this.setState({openView : !this.state.openView})
+      return (
+      <Redirect to={`${id}/items`} />)
    }
    handleEdit = (bucketid) => {
      this.setState({openEdit : !this.state.openEdit,
@@ -126,8 +130,8 @@ const initial_state =  {
      return (
        bucketlists.map((bucketlist) =>(
          <Details
-           date={bucketlist.date_created}
-           dateUpdated={bucketlist.date_updated}
+           date={`Date created ${bucketlist.date_created}`}
+           dateUpdated={`Edited on ${bucketlist.date_updated}`}
            getDetails={() => this.handleGetOne(bucketlist.id)}
            key={bucketlist.id}
            title={bucketlist.title}
@@ -179,7 +183,9 @@ const initial_state =  {
      return (
        <div>
          <Toolbar style={{margin:15}}>
+           <Link to="/">
            <ToolbarTitle text="Bucketlists" />
+            </Link>
            <ToolbarGroup firstChild={true}>
           <SelectField
             value={this.state.value}
@@ -194,17 +200,10 @@ const initial_state =  {
           </SelectField>
          </ToolbarGroup>
            <ToolbarGroup>
-           <TextField
-            id="text-field-controlled"
-            hintText="Search Bucketlists"
-            value={this.state.search}
-            onChange={this.handleSearch}
-           />
-           <FlatButton
-             label="Search"
-             primary={true}
-             onClick={this.handleSearchBucket}
-           />
+             <SearchBar
+               onChange={this.handleSearch}
+               onRequestSearch={this.handleSearchBucket}
+             />
            <ToolbarSeparator />
            <RaisedButton
             label="Add a bucketlist"
@@ -215,7 +214,8 @@ const initial_state =  {
            <div>
              <div>
                {this.props.searched ?
-                 <SearchTiles data={this.props.searchedBucketlist}/> :
+                 <div> <h4>Searched bucketlist:</h4> <SearchTiles
+                   data={this.props.searchedBucketlist}/></div> :
                  <div></div>}
              </div>
               <div     style={{
@@ -274,17 +274,7 @@ const initial_state =  {
         contentStyle={customContentStyle}
         open={this.state.openView}
           >
-          <Tabs
-      value={this.state.value}
-      onChange={this.handleChange}
-    >
-      <Tab
-        style={{
-          backgroundColor : "#A1887F"}}
-        >
-              <ItemContainer />
-      </Tab>
-      </Tabs>
+            You are about to see <Link to="/items">Items</Link>
       </Dialog>
        </div>
      )

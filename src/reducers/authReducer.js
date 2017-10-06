@@ -26,6 +26,8 @@ export default (state=initial_state, action) => {
     return {...initial_state};
   case "LOGOUT_FULFILLED":
     return {...initial_state};
+  case "LOGOUT_REJECTED":
+    return {...initial_state};
   default:
     return state;
   }
