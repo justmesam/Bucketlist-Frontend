@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Authentication from "./Auth";
 import Dashboard from "./dashboard";
 
-class App extends Component {
+class Home extends Component {
   constructor(props){
     super(props);
     this.state = { authenticated: false };
@@ -33,5 +33,5 @@ const mapStateToProps = (state) => {
     authenticated, token
   }
 }
-export default connect(mapStateToProps)(App);
-export { App }
+export default connect(mapStateToProps)(Home);
+export { Home }

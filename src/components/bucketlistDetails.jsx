@@ -9,7 +9,7 @@ const Details = (props) => (
   <Card style={{
     display: "inline-block",
     margin: 12,
-    width: "33vw",
+    width: "40vw",
     transitionDuration: "0.3s"}}
     onClick={props.getDetails}
     >
@@ -17,15 +17,15 @@ const Details = (props) => (
       title={props.title}
     />
     <CardText >
-      <p>{props.intro}</p>
+      <p style={{wordWrap: "break-word"}}>{props.intro}</p>
       <div style={{
     display: "flex",
     flexWrap: "wrap",
   }}>
-      <Chip>
+      <Chip style={{margin:"2px"}}>
         {props.date}
       </Chip>
-      <Chip>
+      <Chip style={{margin:"2px"}}>
         {props.dateUpdated}
       </Chip>
       </div>

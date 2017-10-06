@@ -57,6 +57,7 @@ class NavBar extends Component {
               new_password,
               confirm_password }, 1000)
     })
+    this.setState({openChange : !this.state.openChange})
   }
 
   render() {
@@ -76,8 +77,9 @@ class NavBar extends Component {
       <div>
         <AppBar
           style={{
-            backgroundColor : "#A1887F"}}
+            backgroundColor : "#05668D"}}
           title={`Hello, ${this.props.user}`}
+          showMenuIconButton={false}
           iconElementRight={
             <IconMenu
               iconButtonElement={

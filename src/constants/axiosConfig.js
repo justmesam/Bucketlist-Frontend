@@ -1,7 +1,7 @@
 import axios from "axios";
 import store from "./store";
 
-const ApiUrl = "https://labucketlist-api.herokuapp.com/";
+const ApiUrl = "http://127.0.0.1:5000";
 const instance = axios.create({
   baseURL : `${ApiUrl}`,
   timeout : 5000,

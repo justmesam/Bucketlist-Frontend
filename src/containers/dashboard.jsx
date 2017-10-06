@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import NavBar from "../components/layout/navBars"
+import NavBar from "../components/layout/navBars";
+import { Redirect , Route , Switch } from "react-router-dom";
 import BucketContainer from "./bucketlist";
 
 class Dashboard extends Component {
