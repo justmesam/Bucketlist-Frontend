@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/defff91084f94776a77811d3239cd028)](https://www.codacy.com/app/justmesam/Bucketlist-Frontend?utm_source=github.com&utm_medium=referral&utm_content=justmesam/Bucketlist-Frontend&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/justmesam/Bucketlist-Frontend.svg?branch=master)](https://travis-ci.org/justmesam/Bucketlist-Frontend)
 # Bucketlist_Frontend
 
