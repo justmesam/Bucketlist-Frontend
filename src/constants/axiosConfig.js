@@ -18,17 +18,18 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
-// instance.interceptors.response.use((response) => {
-//     return response;
-//   }, (error) => {
-//     if(error){
-//     if(error.response.status === 401) {
-//       localStorage.clear()
-//     }
-//     if(error.response.status === 404){
-//       alert(error.response.data.message);
-//     }
-//     return Promise.reject(error);
-//   }});
+instance.interceptors.response.use((response) => {
+    return response;
+  }, (error) => {
+    if(error){
+    if(error.response.status === 401 || error.response.status === 409) {
+      alert(error.response.data.message);
+      localStorage.clear()
+    }
+    if(error.response.status === 404){
+      alert(error.response.data.message);
+    }
+    return Promise.reject(error);
+  }});
 
 export default instance;
