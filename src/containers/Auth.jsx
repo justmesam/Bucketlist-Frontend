@@ -39,7 +39,7 @@ class Authentication extends Component {
         display:"flex",
         justifyContent: "center",
         alignItems: "center"}}>
-        <Tabs style={{width : "40vw", backgroundColor:"#fff"}}>
+        <Tabs style={{width : "40vw", backgroundColor:"#fff", padding: "20px"}}>
           <Tab style={{
             backgroundColor : "#A1887F"}}
           label="Register" >
